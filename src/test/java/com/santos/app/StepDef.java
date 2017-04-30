@@ -11,11 +11,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+
+
 import org.openqa.selenium.JavascriptExecutor;
 import java.util.function.*;
 
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import java.util.List;
+import java.util.Set;
 
 public class StepDef {
 	
@@ -38,10 +43,32 @@ public class StepDef {
 			e.printStackTrace();
 		}
 		
-		
-		
-		
 	}	
+	
+	@And("^the user clicks \"([^\"]*)\"$")
+	public void click(String xpath) {
+		waitUntilElementIsPresent(driver,xpath);
+		List<WebElement> oList = driver.findElements(By.xpath(xpath));
+		oList.get(0).click();
+		
+		Set<String> handles = driver.getWindowHandles();
+		System.out.println(handles.size());
+		for(String handle:handles){
+			System.out.println(handle);
+		}
+	}
+	
+	public void waitUntilElementIsPresent(WebDriver driver,String xpath) {
+		swithToframe("iframeResult");
+		Wait<WebDriver> wait = new WebDriverWait(driver,30);
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(xpath)));
+	}
+	
+	public void swithToframe(String frameName)  {
+		new WebDriverWait(driver,15).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameName));
+		
+	}
+	
 	
 	public void waitUntilBrowserIsOpen(WebDriver driver) {
 		
