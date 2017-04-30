@@ -5,4 +5,4 @@ Feature: annotation
 
 #Scenario with AND 
 Scenario: 
-   Given a user navigates to "https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_open5"
+   Given a user navigates to test "https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_open5"
