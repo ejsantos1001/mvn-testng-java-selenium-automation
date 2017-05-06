@@ -5,5 +5,6 @@ Feature: annotation
 
 #Scenario with AND 
 Scenario: 
-   Given a user navigates to test "https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_open5"
-   And the user clicks "//button[contains(text(),'Try it')]"
+	Given a user navigates to test "https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_iframe"
+	And frame test
+	

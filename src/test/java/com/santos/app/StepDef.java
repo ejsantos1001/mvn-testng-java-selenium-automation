@@ -1,6 +1,15 @@
 package com.santos.app;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.lang.System;
+import java.nio.file.Path;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -33,6 +42,7 @@ public class StepDef {
 	public void openBrowserTo(String url) {
 
 		System.out.println("openBrowserTo");
+		
 		driver.navigate().to(url);
 		waitUntilBrowserIsOpen(driver);
 		
@@ -45,8 +55,64 @@ public class StepDef {
 		
 	}	
 	
+	@And("^print file$") 
+	public void printFile() {
+		
+		File file = new File("C:/Users/Ej/Documents/testautomationframework/text.txt");
+		FileOutputStream out;
+		try {
+			out = new FileOutputStream(file);
+			FileWriter fw = new FileWriter(file);
+			BufferedWriter buffer = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(buffer);
+			pw.print("newtest2");
+			
+			
+			
+			pw.close();
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@And("^test$") 
+	public void testStep() {
+		
+		String locatorString = "//test";
+		
+		if(locatorString.startsWith("xpath")) {
+			System.out.println("true");
+		} else System.out.println("false");
+		
+		locatorString = "xpath:=//";
+		
+		if(locatorString.startsWith("xpath")) {
+			System.out.println("true");
+		} else {
+			System.out.println("false");
+		}
+		
+	
+		
+	}
+	
+	
+	@And("^frame test$")
+	public void frameTest() {
+
+		List<WebElement> elementList = driver.findElements(By.xpath("//iframe")); 
+		System.out.println(elementList.size());
+		for(WebElement e: elementList) {
+			System.out.println(e.getAttribute("id"));
+		}
+		
+	}
+	
 	@And("^the user clicks \"([^\"]*)\"$")
-	public void click(String xpath) {
+	public  void click(String xpath) {
 		waitUntilElementIsPresent(driver,xpath);
 		List<WebElement> oList = driver.findElements(By.xpath(xpath));
 		oList.get(0).click();
